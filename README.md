@@ -12,7 +12,8 @@ The below scripts and PCAWG scripts require the following:
 - Chromosomes X and Y are X and Y, *not* "23" and "24".
 - The 7th column of the BEDPE file should have a unique sample name.
 This column may contain multiple fields (e.g., to identify both a sample
-and an event). These fields must be separated with a colon (":").
+and an event). These fields must be separated with a colon (":"). The first
+field is the sample name.
 
 ## Scripts
 ```
