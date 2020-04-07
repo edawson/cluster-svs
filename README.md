@@ -1,3 +1,44 @@
+cluster-svs
+------------
+April 2020
+
+## Wrapper scripts
+This repo wraps the scripts described in the below sections
+to be run on sample-level files. To run clustering per sample:
+
+## Input
+The below scripts and PCAWG scripts require the following:
+- Chromosomes are not prefixed with "chr" and map to hg19.
+- Chromosomes X and Y are X and Y, *not* "23" and "24".
+- The 7th column of the BEDPE file should have a unique sample name.
+This column may contain multiple fields (e.g., to identify both a sample
+and an event). These fields must be separated with a colon (":").
+
+## Scripts
+```
+python wrap_pcawg.py <study BEDPE file>
+```
+This will generate a ton of small BEDPE files (one per each sample).
+
+```
+write_jfile.sh
+```
+This will output a file called "jobfile.txt," which lists individual
+clustering jobs. To run them, use GNU parallel or LaunChair:
+
+
+```
+python LaunChair/launcher.py -i jobfile.txt -c 1 -n <number of CPUs>
+```
+
+This will cluster and label each event in the BEDPE files.
+
+They can then be recombined:
+```
+cat *sv.bedpe..sv_clusters_and_footprints > study_bedpe.bedpe
+```
+
+
 ClusterSV
 =========
 
