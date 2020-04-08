@@ -19,17 +19,18 @@ field is the sample name.
 ```
 python wrap_pcawg.py <study BEDPE file>
 ```
-This will generate a ton of small BEDPE files (one per each sample).
+This will generate a ton of small BEDPE files (one per each sample). You'll need
+to stage all of the clustering jobs to run using the write_file.sh script:
 
 ```
-write_jfile.sh
+./write_jfile.sh
 ```
 This will output a file called "jobfile.txt," which lists individual
 clustering jobs. To run them, use GNU parallel or LaunChair:
 
 
 ```
-python LaunChair/launcher.py -i jobfile.txt -c 1 -n <number of CPUs>
+python LaunChair/launcher.py -i jobfile.txt -c 1 -n <number of CPUs available>
 ```
 
 This will cluster and label each event in the BEDPE files.
