@@ -27,8 +27,8 @@ def run(work, cores_per_task):
         exit(1)
     return
 
-def make_clustering_call(fi, cores_per_task=1):
-    run_line = "Rscript clustering_index.R " + fi + " " + str(cores_per_task)
+def make_clustering_call(fi, rundir, cores_per_task=1):
+    run_line = "Rscript " + rundir + "/clustering_index.R " + fi + " " + str(cores_per_task)
     return run_line
 
 def parse_args():
@@ -42,6 +42,8 @@ def parse_args():
 if __name__ == "__main__":
     
     args = parse_args()
+    
+    rundir = os.path.dirname(os.path.realpath(__file__))
 
     odir = os.getcwd()
     if os.path.exists(args.directory):
@@ -66,7 +68,7 @@ if __name__ == "__main__":
     work_lines = []
     for i in sample_d:
         samp_file = args.directory + "/" + i + ".sv.bedpe"
-        run_line = make_clustering_call(samp_file, args.task_cores)
+        run_line = make_clustering_call(samp_file, rundir, args.task_cores)
         work_lines.append(run_line)
     run(work_lines, args.tasks)
 
